@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+  路由: 其实就是一套映射的规则, 标记了地址栏hash值 和 所展示的组件 的对应关系
+  地址栏的hash值 和 要展示的组件 应该是一一对应的
+-->
+
+    <!-- 锚链接, a链接 => 锚点跳转 -->
+    <a href="#/home">首页</a>
+    <a href="#/list">列表页</a>
+    <a href="#/login">登录页</a>
+
+    <div id="content">
+      <!-- // 模拟不同的地址栏中的hash值，显示不同的内容 -->
+    </div>
+
+    <script>
+      // 1. hash值变化了, 就会触发这个监听
+      // 2. 通过 location.hash 可以拿到地址栏的hash值
+      window.addEventListener('hashchange', function () {
+        console.log('hash变化了')
+        console.log(location.hash)
+
+        // 根据不同的hash值，显示不同的内容到content区域
+        switch (location.hash) {
+          case '#/home':
+            document.getElementById('content').innerHTML = '这里主页的内容'
+            break
+          case '#/list':
+            document.getElementById('content').innerHTML = '列表页'
+            break
+          case '#/login':
+            document.getElementById('content').innerHTML = '登录页的内容'
+            break
+          default:
+            break
+        }
+      })
+    </script>
+  </body>
+</html>

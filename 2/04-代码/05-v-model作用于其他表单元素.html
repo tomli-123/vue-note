@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{ msg }}</p>
+      <input type="text" v-model="msg" value="123456">
+      <hr>
+      <p>{{ desc }}</p>
+      <textarea v-model="desc"></textarea>
+      <hr>
+      <!-- select框的value值, 就是选中的option的value值, 既可以用于获取, 也可以用于设置 -->
+      <p>{{ hobbyId }}</p>
+      <select v-model="hobbyId">
+        <option value="1">吃饭</option>
+        <option value="2">睡觉</option>
+        <option value="3">打豆豆</option>
+      </select>
+      <hr>
+      <input type="checkbox" v-model="isSingle" checked>是否单身
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 表单元素如果设置了 v-model, 那么就会忽略掉默认的 value checked 等初始值
+      // v-model作用于其他表单元素
+      // textarea  select/option  input:checkbox
+      // 双向绑定, 可以非常方便的进行表单元素值的设置 和 获取
+
+      // 课外拓展 => 加强对于双向数据绑定的理解 => 见拓展视频
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          desc: '描述: 大帅鹏, 帅帅帅, 老铁没毛病',
+          hobbyId: 3,
+          isSingle: false 
+        }
+      })
+    </script>
+  </body>
+</html>

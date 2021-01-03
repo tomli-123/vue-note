@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      /* .router-link-exact-active {
+        color: red;
+        font-size: 40px;
+      } */
+
+      .router-link-active {
+        color: red;
+        font-size: 40px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h3>单页应用程序</h3>
+      <ul>
+        <li><router-link to="/home">首页</router-link></li>
+        <li><router-link to="/list">列表</router-link></li>
+        <li><router-link to="/login">登录</router-link></li>
+      </ul>
+      <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      // vue-router是一个官方提供的vue路由插件: 帮你监视地址栏hash的变化, 并且帮你切换展示对应的组件
+      // 只要引入了 vue-router, 就有了 VueRouter 构造函数
+      // 如果要实现导航链接的跳转, 专门提供了 router-link 导航链接
+      // 1. router-link 实际渲染出来, 还是 a 标签
+      // 2. router-link 必须配置 to 属性, 指定跳转的路由地址 (跳到哪去)
+      // 3. router-link 在路径匹配时, 会自动给当前 a 标签, 添加上两个类
+      //    (1) router-link-exact-active 精确匹配
+      //        必须 router-link 中配置的 to, 和地址栏的hash值, 完全相等, 才会匹配
+      //        to="/home"  =>  可以匹配 /home
+
+      //    (2) router-link-active  模糊匹配
+      //        router-link中配置的 to, 只要在地址栏的hash值包含即可, 就会匹配, 加上对应的类
+      //        to="/home"  =>  可以匹配 /home   /home/aa  /home/bb
+
+      const router = new VueRouter({
+        routes: [
+          { path: '/', redirect: '/home' },
+          { path: '/home', component: { template: `<div>我是Home</div>` } },
+          { path: '/list', component: { template: `<div>我是列表</div>` } },
+          { path: '/login', component: { template: `<div>我是登录</div>` } },
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        router
+      })
+
+
+
+      /* 
+        router-link-active 模糊匹配
+        router-link-exact-active 精确匹配
+      */
+    </script>
+  </body>
+</html>

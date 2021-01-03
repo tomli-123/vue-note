@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>跳转和传参</h3>
+      <router-link to="/">首页</router-link><br>
+      <router-link to="/list">不传参跳转</router-link><br>
+      <router-link to="/user/2">传参跳转(路由传值)</router-link><br>
+      <router-link to="/product?name=冰箱">传参跳转(查询参数传值)</router-link><br>
+      <hr>
+      <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      // 常见的传参方式
+      // 1. 路由传值(动态路由匹配), 参数是路由的一部分
+      //    /user/1     =>   this.$route.params.id
+      // 2. 查询参数传值, 参数不是路由的一部分
+      //    /product?name=商品  => this.$route.query.name
+
+      // 常见的跳转路由的方式
+      // 1. 声明式导航, 通过 router-link 跳转
+      // 类似于: <a href="http://www.baidu.com"></a>
+      // 2. 编程式导航, 通过 js 的方式跳转
+      // 类似于: location.href="http://www.baidu.com"
+      const router = new VueRouter({
+        routes: [
+          { path: '/', component: { template: `<div>我是首页</div>` } },
+          { path: '/list', component: { template: `<div>我是列表页</div>` } },
+          { path: '/user/:id', component: { template: `<div>我是用户-{{ $route.params.id }}</div>` } },
+          { path: '/product', component: { template: `<div>我是商品-{{ $route.query.name }}</div>` } }
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        router
+      })
+    </script>
+  </body>
+</html>

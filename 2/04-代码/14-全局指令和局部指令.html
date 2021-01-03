@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text">
+      <input type="text">
+      <input type="text" v-focus>
+      <input type="text">
+      <input type="text" v-red>
+      <hr>
+      <p v-red>我是p标签</p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 全局定义 自定义指令
+      Vue.directive('focus', {
+        // 指令所在的元素, 被插入到页面中时执行 (页面已经有这个元素了)
+        inserted (el) {
+          // el element元素 => 就是指令所在的元素
+          console.log(111)
+          el.focus()
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        // 局部定义 指令
+        directives: {
+          // 指令名: 配置对象, v-red
+          // 只要加上了这个指令, 就能让元素的内容的文本字体颜色, 变成红色
+          red: {
+            inserted (el) {
+              el.style.color = 'red'
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

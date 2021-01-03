@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>单页应用程序</h3>
+      <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      // vue-router是一个官方提供的vue路由插件: 帮你监视地址栏hash的变化, 并且帮你切换展示对应的组件
+      /* 
+        使用步骤:
+          1. 下载 npm i vue-router
+          2. 导入
+          3. 创建路由实例
+             const router = new VueRouter()
+          4. 挂载到vm实例上, 建立关联
+
+          5. 配置路由规则
+              routes: [
+                { path: '/home', component: { template: `<div>我是首页</div>` } },
+                { path: '/list', component: { template: `<div>我是列表</div>` } },
+                { path: '/login', component: { template: `<div>我是登录</div>` } },
+              ]
+          6. 准备路由出口, <router-view></router-view>
+             决定了匹配路径时, 组件所展示的位置
+      */
+      // router 是整个的大的路由实例对象, 一个应用就一个实例对象
+      // route  一条路由规则, 每条规则都是一个对象  { path: ..., component: 组件的配置对象 }
+      // routes 很多条路由规则
+
+      // Vue.component(组件名, 组件的配置对象)
+
+
+      // 只要引入了 vue-router, 就有了 VueRouter 构造函数
+      const Home = { 
+        template: `
+          <div>
+            <div>我是首页</div>
+            <button @click="fn">我是按钮</button>  
+          </div>
+        `,
+        methods: {
+          fn () {
+            alert('我是首页')
+          }
+        }
+      }
+
+      const router = new VueRouter({
+        routes: [
+          { path: '/home', component: Home },
+          { path: '/list', component: { template: `<div>我是列表</div>` } },
+          { path: '/login', component: { template: `<div>我是登录</div>` } },
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        router
+      })
+    </script>
+  </body>
+</html>

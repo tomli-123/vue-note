@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #app {
+        width: 400px;
+        height: 400px;
+        background-color: pink;
+      }
+
+      .son {
+        width: 300px;
+        height: 200px;
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+      组件的数据都是独立的, 组件之间是不能随意的访问互相的数据的
+      父子关系
+        根组件 => 父组件
+        son组件 => 子组件
+      兄弟关系
+        <div id="app">
+          <son></son>
+          <son></son>
+        </div>
+
+      父传子的基本语法:
+        1. 通过给子组件添加标签属性的方式传值
+        2. 在子组件中, 可以通过props接收传值
+    -->
+
+    <!-- 根组件的模板范围 -->
+    <div id="app">
+      <son house="新疆海景大别墅" car="宝马车" :money="money" desc="abc"></son>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      Vue.component('son', {
+        template: `
+          <div class="son">
+            <h3>我是子组件</h3>
+            <p>传过来的数据: {{ house }} - {{ car }} - {{ money }} - {{ desc }}</p>
+          </div>
+        `,
+        // props中的数据和data类似, 都可以直接使用
+        props: ['house', 'car', 'money', 'desc']
+      })
+
+      // 根实例(根组件)
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          money: 10000
+        }
+      })
+
+
+      /* 
+        父传子基本语法:
+          1. 在父组件中, 通过给子组件添加标签属性的方式传值
+          2. 在子组件中, 通过 props 接收传递的参数
+      
+      */
+    </script>
+  </body>
+</html>

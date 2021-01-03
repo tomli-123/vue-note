@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <!-- 
+    json-server的基本使用:
+      1. 全局安装 (全局的命令行工具)
+         npm i json-server -g
+
+      2. 准备一个json文件, 提供数据  (data.json)
+        {
+          "list": [
+            { "id": 1, "name": "跑车", "price": 200 },
+            { "id": 2, "name": "玩具车", "price": 15 },
+            { "id": 3, "name": "蹦蹦车", "price": 80 },
+            { "id": 4, "name": "拖拉机", "price": 120 }
+          ]
+        }
+
+      3. 利用命令, 启动接口
+         json-server data.json
+
+      4. 测试
+         get请求: http://localhost:3000/list, 返回全局的列表数据  => 可以完成列表渲染
+
+      restful规范是一个后台的接口规范, 是通过请求方式, 区分操作类型
+        get: 获取, 查询
+        post: 添加
+        delete: 删除
+        put: 全部修改, 要改全都改, 要每个属性都要传, 如果不传, 那么不传的那个属性就会被删除
+        patch: 局部修改, 可以只改一部分
+   -->
+  
+</body>
+</html>

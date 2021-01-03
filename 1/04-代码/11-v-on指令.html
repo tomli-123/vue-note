@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      v-on作用: 用于注册事件
+      1. 内联语句, 将要执行的代码, 直接写在 "" 里面, 好处: 简洁简单, 适合于特别简单的代码
+         v-on:事件名="要执行的代码"
+
+      2. 指定成methods中的函数
+         v-on:事件名="methods中的函数"
+
+      3. 指定成methods中的函数, 并且传参
+         v-on:事件名="methods中的函数(参数1, 参数2, ...)"
+
+      简写: v-on 可以简写, @
+         v-on:事件名 => @事件名
+
+      -----------------------------------------------------------------------------
+      小结: v-on事件注册
+        1. @事件名="要执行的代码"
+        2. @事件名="methods中的函数"
+        3. @事件名="methods中的函数(参数1, 参数2, )"
+     -->
+
+    <div id="app">
+      <button v-on:click="isShow = !isShow">控制h1的显示隐藏</button>
+      <button v-on:click="fn1">指定成methods中的函数</button>
+      <button v-on:click="fn2(100)">指定成methods中的函数, 并传参</button>
+      <hr>
+      <button @click="isShow = !isShow">控制h1的显示隐藏</button>
+      <button @click="fn1">指定成methods中的函数</button>
+      <button @click="fn2(100)">指定成methods中的函数, 并传参</button>
+      <hr>
+      <button @mouseenter="fn3">@简写, 注册mouseenter事件</button>
+      <h1 v-show="isShow">我是内容</h1>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          isShow: true
+        },
+        // 方法放到methods中, methods中的this, 默认指向vm实例
+        methods: {
+          fn1 () {
+            // alert('你好哇')
+            // vm.isShow = !vm.isShow
+            this.isShow = !this.isShow
+          },
+          fn2 (num) {
+            console.log(num)
+            console.log('这是fn2')
+          },
+          fn3 () {
+            alert('鼠标滑入了')
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

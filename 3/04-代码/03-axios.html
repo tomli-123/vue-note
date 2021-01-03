@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <!-- 
+    $.ajax({ ... }) type url data success error
+
+    axios 只是一个 基于原生ajax封装的 插件工具
+    在你需要发送ajax的时候, 引入即可
+
+    使用:
+      1. 下载 npm i axios
+      2. 引包
+      3. 发送请求
+
+    axios({
+      method: 请求方式,   // get post put patch delete
+      url: 请求地址,      // http://localhost:3000/list
+      data: {},          // 参数对象, 在body请求体中传递, post put patch
+      params: {}         // 参数对象, 在url地址栏中传递, ?xx=xx   get delete
+    }).then(成功的函数).catch(失败的函数)
+
+   -->
+   <script src="./node_modules/axios/dist/axios.js"></script>
+   <script>
+
+     // get 获取
+     // post 添加
+     // delete 删除
+     // put  全部修改
+     // patch 局部修改
+
+     // 测试
+     // 1. 发送get请求, 获取全部的数据
+    //  axios({
+    //    method: 'get',
+    //    url: 'http://localhost:3000/list'
+    //  }).then((res) => {
+    //    // 后台返回的数据 res.data
+    //    console.log(res.data)
+    //  }).catch(err => {
+    //    console.log(err)
+    //    alert('当前服务器繁忙, 稍后重试')
+    //  })
+
+    
+    // alt + B
+    // 2. 发送get请求, 完成搜索数据
+    // (1) 可以直接在地址栏拼接
+    // axios({
+    //   method: 'get',
+    //   url: 'http://localhost:3000/list?name_like=车'
+    // }).then(res => {
+    //   console.log(res.data)
+    // })
+
+    // (2) 在params中传递
+    // axios({
+    //   method: 'get',
+    //   url: 'http://localhost:3000/list',
+    //   params: {
+    //     name_like: '车'
+    //   }
+    // }).then(res => {
+    //   console.log(res.data)
+    // })
+
+    // ------------------------------------------------------------------------------
+    // 3. axios发送post请求, 添加
+    //    put patch post的参数, 都在 data 中
+    //    json-server要求请求的传输格式 json 格式, axios默认的请求body的传输格式, 就是json格式
+    // axios({
+    //   method: 'post',
+    //   url: 'http://localhost:3000/list',
+    //   data: {
+    //     name: '棒棒糖',
+    //     price: 1
+    //   }
+    // }).then(res => {
+    //   console.log(res.data)
+    //   console.log('添加成功')
+    // })
+
+
+
+
+   </script>
+
+</body>
+</html>

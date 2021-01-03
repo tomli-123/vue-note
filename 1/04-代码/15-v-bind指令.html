@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      v-bind作用: 动态设置html标签属性 (访问的是data中的数据)
+      语法: v-bind:属性名="属性值"
+      简写: v-bind:属性名="属性值"  =>  :属性名="属性值"
+            v-bind:src="值" => :src="值"
+
+      巩固:
+        1. :title="str" 动态的设置title属性, 值从data中取的 str 变量的值
+        2. title="str"  写死的title属性, 值就是 'str' 字符串
+
+     -->
+    <div id="app">
+      <img v-bind:src="imgSrc" v-bind:title="info" v-bind:aa="bb" alt="">
+      <img :src="imgSrc" :title="info" :aa="bb" alt="">
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          imgSrc: '01.jpg',
+          info: '这是一张美女图片',
+          bb: '内容'
+        }
+      })
+    </script>
+  </body>
+</html>

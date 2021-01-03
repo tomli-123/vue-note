@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .modal {
+        border: 3px solid #000;
+        padding: 5px;
+        margin: 5px;
+        width: 300px;
+        background-color: pink;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app">
+
+      <pp-modal title="警告">
+        <template v-slot:content>
+          <input type="text"><br>
+          <input type="text"><br>
+          <input type="text"><br>
+        </template>
+
+        <!-- 作用域插槽, 可以在定义插槽的同时, 提供一些数据, 你用是可以的, 不用也可以 -->
+        <template v-slot:footer="obj">
+          <button @click="show(obj)">{{ obj.yes }}</button>
+          <button>{{ obj.no }}</button>
+        </template>
+      </pp-modal>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 需求1: 将对话框封装成组件, 标题通过父传子进行了定制
+      // 需求2: 希望对话框1, 内容都是 input, 对话框2, 内容都是 p
+
+      // 如果要实现复杂的组件的结构定制, 就需要用到 插槽
+      // <slot></slot> 标签, 用于接收分发的内容, 可以完成组件的定制
+
+      // 插槽:
+      // 1. 默认插槽(匿名插槽), 只要没有具体指派的内容, 一律会给到默认插槽
+      //    <slot></slot>
+      // 2. 具名插槽: 具有名字的插槽, 只会接收对应指派的内容, 如果不是指派给他的, 他不要
+      //    (1) 给插槽起名字, <slot name="content"></slot>
+      //    (2) 需要使用 template 标签, 将要分发的内容包裹
+      //    (3) 通过 v-slot:插槽名 具体指派
+
+      // 作用域插槽: 插槽传值的用法, 其实定义插槽的同时, 是可以提供数据的
+      // 可以在分发内容时, 使用组件时, 可以使用这些默认提供的数据
+      // (1) 给插槽, 以添加属性的方式传值
+      //     <slot money="100" title="大标题" yes="确认" no="取消" name="footer"></slot>
+      // (2) 所有添加的属性, 都会被收集到一个对象中去
+      //     { money: 100, title: '大标题', yes: '确认', no: '取消' }
+      // (3) 在template中, 可以通过 v-slot:插槽名="obj" 接收参数
+
+      Vue.component('pp-modal', {
+        template: `
+          <div class="modal">
+            <div class="title">
+              <h3>{{ title }}</h3>
+            </div>
+            <div class="content">
+              <slot name="content"></slot>
+            </div>
+            <div class="footer">
+              <slot money="100" title="大标题" :yes="yes" :no="no" name="footer"></slot>
+            </div>
+          </div>
+        `,
+        data () {
+          return {
+            yes: '是',
+            no: '否'
+          }
+        },
+        props: ['title']
+      })
+
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        methods:{
+          show(obj)
+          {
+            console.log(obj)
+
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

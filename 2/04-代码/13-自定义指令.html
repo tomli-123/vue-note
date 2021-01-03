@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text">
+      <input type="text">
+      <input type="text" v-focus>
+      <input type="text">
+      <input type="text">
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 需求: 一进入页面, 希望input自动获取焦点  autofocus, 但是在移动端 safari 浏览器中不兼容
+      // 需要我们通过自定义指令, 完成自动聚焦的功能  (dom操作 => input.focus() )
+      // 其实就是将dom操作, 封装到了自定义指令中
+
+      // 1. 定义指令
+      // Vue.directive(指令名, { ... })
+      // 2. 使用指令
+      // v-指令名, 需要在使用时, 加上v-前缀
+      Vue.directive('focus', {
+        // 指令所在的元素, 被插入到页面中时执行 (页面已经有这个元素了)
+        inserted (el) {
+          // el element元素 => 就是指令所在的元素
+          console.log(111)
+          el.focus()
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        }
+      })
+    </script>
+  </body>
+</html>

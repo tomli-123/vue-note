@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <a @click="fn1" href="http://www.baidu.com">去百度</a>
+      <a @click="fn2('zs', $event)" href="http://www.baidu.com">去百度2</a>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // a 标签点击会跳走, 但是不希望他跳, 可以阻止默认行为
+      // 1. 阻止默认行为 e.preventDefault()
+      // 2. 阻止冒泡    e.stopPropagation()
+      // 都要e, 学会如何获取事件对象
+
+      // vue中获取事件对象
+      // 1. 注册事件没有传参 @事件名="fn", 直接通过形参, 即可获取
+      // 2. 注册事件传参了   @事件名="fn(参数, $event)", 需要通过 $event 获取 e
+
+      // 注意规范: 能用const尽可能都用const, 发现值要变了, 再用let
+      // const obj = {} // 可以保证类型, 必须是对象, 不会变的
+      // obj.name = 'zs' // 正常操作可以
+      // obj = 'zs' // 改地址, 改类型, 报错
+
+      // let obj = {
+      //   age: 18
+      // }
+      // obj = 'zs' 
+      // console.log(obj.age)
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        methods: {
+          fn1 (e) {
+            e.preventDefault()
+          },
+          fn2 (str, e) {
+            e.preventDefault()
+            console.log(str)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

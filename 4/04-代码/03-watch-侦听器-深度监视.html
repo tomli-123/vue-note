@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ msg }}</h1>
+      <button @click="fn">改值</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // watch侦听器作用: 可以监视数据的变化, 只要数据变化了, 就会自动执行你配置的函数
+      // el 视图, data 数据, methods 方法, filters directives computed watch 钩子函数(created)
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          str: 'abc',
+          obj: {
+            name: 'zs',
+            age: 18
+          }
+        },
+        methods: {
+          fn () {
+            this.obj.name = 'ls'
+            // this.obj = {}
+          }
+        },
+        watch: {
+          // 需求: 监视整个obj中所有的属性的变化, 任何一个属性修改了, 我都希望能知道, 需要深度监视
+          // 默认监视的只是对象地址的变化
+          // obj (newValue) {
+          //   console.log('对象被修改了', newValue)
+          // }
+
+          // 深度监视
+          obj: {
+            deep: true,
+            // 处理函数, obj变化了, 需要执行的函数
+            handler (newValue) {
+              console.log('obj被修改了', newValue)
+            }
+          }
+        }
+      })
+
+      /* 
+        watch 监视, 侦听器, 可以监视数据的变化
+
+        语法:
+          watch: {
+            msg (newValue, oldValue) {
+
+            },
+            desc (newValue, oldValue) {
+
+            },
+            'obj.age' (newValue) {
+
+            },
+            // 深度监视, 如果要监视整个对象以及对象中所有属性的修改, 深度监视
+            // 不要滥用, 相对来说, 监视会消耗一定性能 (功能需要的时候用即可)
+            obj: {
+              deep: true,
+              handler (newValue) {  // newValue 变化后的对象
+
+              }
+            }
+          }
+      
+      
+      */
+
+
+    </script>
+  </body>
+</html>

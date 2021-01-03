@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <global></global>
+      <hello></hello>
+    </div>
+
+    <div id="app2">
+      <global></global>
+      <hello></hello>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 全局组件: 在所有的vue实例中都可以使用
+      // 局部组件: 只能在当前的vue实例中使用
+      Vue.component('global', {
+        template: `
+          <div>我是全局组件</div>
+        `
+      })
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        components: {
+          hello: {
+            template: `
+              <div>我是局部组件</div>
+            `
+          }
+        }
+      })
+
+      const vm2 = new Vue({
+        el: '#app2',
+        data: {
+          msg: 'hello vue'
+        }
+      })
+    </script>
+  </body>
+</html>

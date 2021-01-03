@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .my-subject {
+        border: 1px solid #000;
+        width: 300px;
+        margin: 10px;
+        padding: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- 谁的模板范围, 就是谁的作用域, 用的就是谁的变量 -->
+    <div id="app">
+      <h4>测试题</h4>
+
+      <!-- 在生成这个题目时, 就应该父传子, 将 id 传递进去 -->
+      <my-subject 
+        @submit-ans="submitAns" 
+        v-for="item in list" 
+        :key="item.id"
+        :subjectid="item.id"
+      >
+      </my-subject>
+      
+      <p>
+        <span v-for="item in list" :key="item.id">{{ item.id }}. {{ item.ans }} </span>
+      </p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 需求
+      // 1. 每道题, 都是一个独立的题目, 封装成一个组件
+      // 2. 希望题目的数量, 能够控制, 需要通过一个数组存储所有的题目的状态
+      // 3. 希望两个数字都能在组件内自己随机, 要求生成的数字 10 以内 (0-9的整数)
+      // 4. 提交答案
+      // (1) 注册点击事件, 进行提交
+      // (2) v-model 和 结果双向绑定, 便于获取结果的值
+      // (3) 计算出答题的结果 (正确还是错误)
+      // (4) 将结果子传父传递给父组件, 让父组件去更新对应题目的状态
+      Vue.component('my-subject', {
+        template: `
+          <div class="my-subject">
+            <span>{{ num1 }}</span> + 
+            <span>{{ num2 }}</span> = 
+            <input :disabled="isSubmit" type="text" class="sum" v-model.trim.number="sum">
+            <button :disabled="isSubmit" @click="submit">提交</button>
+          </div>
+        `,
+        data () {
+          // 要求生成的数字 10 以内 (0-9的整数)
+          // Math.random()     [0, 1)
+          // Math.random()*10  [0, 10)
+          // parseInt(Math.random()*10)
+          return {
+            num1: parseInt(Math.random()*10),
+            num2: parseInt(Math.random()*10),
+            sum: '',
+            isSubmit: false
+          }
+        },
+        methods: {
+          submit () {
+            // 在组件内, 可以计算出, 算对了还是算错了
+            const result = (this.num1 + this.num2) === this.sum ? '正确' : '错误'
+            // 子传父, 将答案传给父组件, 还需要将 id 传过去
+            this.$emit('submit-ans', {
+              id: this.subjectid,
+              ans: result
+            })
+            // 提交答案, 禁用按钮和输入框
+            this.isSubmit = true
+          }
+        },
+        props: ['subjectid']
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          // ans: 未完成, 正确, 错误
+          list: [
+            { id: 1, ans: '未完成' },
+            { id: 2, ans: '未完成' },
+            { id: 3, ans: '未完成' },
+            { id: 4, ans: '未完成' }
+          ]
+        },
+        methods: {
+          submitAns (obj) {
+            console.log(obj) // { id: 2, ans: '成功' }
+            // 根据 id, 将答案进行更新
+            // 根据 id, 找到 list 数组中, id相同的对应项
+            // return 布尔值, 如果返回是true, 说明找到了
+            const ansObj = this.list.find(item => item.id === obj.id)
+            ansObj.ans = obj.ans
+            
+            // 数据驱动: 要更新视图, 操作数据即可
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

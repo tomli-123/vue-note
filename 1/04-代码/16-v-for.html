@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      小任务: 回去复习 es6, 箭头函数, 
+      数组的方法 forEach, map, filter, some, every, find, findIndex
+
+      for作用: 可以遍历数组或者对象
+      需要重复渲染谁, 就给谁加 v-for
+      1. 遍历数组 (常用)
+         v-for="item in 数组名"          item遍历的每一项
+         v-for="(item, index) in 数组名" index就是下标
+
+      2. 遍历对象 (基本不用)
+         v-for="(value, prop) in 对象名"  value属性值, prop属性名
+     -->
+    <div id="app">
+      <ul>
+        <li v-for="item in list">{{ item }}</li>
+      </ul>
+      <hr>
+      <ul>
+        <li v-for="(item, index) in list">{{ item }} 和 {{ index }}</li>
+      </ul>
+      <hr>
+      <ul>
+        <li v-for="(item, index) in list2">{{ index }}</li>
+      </ul>
+      <hr>
+
+      <!-- 遍历对象展示(了解)  prop属性名 value属性值 -->
+      <ul>
+        <li v-for="(value, prop) in obj">{{ prop }} : {{ value }}</li>
+      </ul>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          list: ['张飞', '貂蝉', '吕布', '甄姬'],
+          list2: ['榴莲', '香蕉', '苹果', '西瓜'],
+          obj: {
+            name: '三姨太',
+            age: 19,
+            desc: '温柔贤惠, 会跳舞'
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

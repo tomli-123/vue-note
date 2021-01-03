@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="main">
+    <div id="box">
+      <h1>{{ msg }}</h1>
+    </div>
+  
+    <div id="box2">
+      <h2>{{ msg }}</h2>
+    </div>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+
+    // 创建vue实例
+    const vm = new Vue({
+      el: '#main',
+      data: {
+        msg: '嘿嘿',
+        count: 100,
+        car: '宝马车'
+      }
+    })
+
+    // vue实例化的过程中, 将data中的所有的数据, 都会添加到 vm 实例上
+    console.log(vm.msg)
+    console.log(vm.count)
+
+    /* 
+      初学者学习vue的注意点:
+        1. Vue的构造函数, 首字母大写
+        2. el不能指定成 body 或者 html
+        3. 到了vue, 请时刻记住: 数据驱动, 要更新视图, 请操作数据
+           vm.xxx = 值
+    */
+
+
+  </script>
+  
+</body>
+</html>

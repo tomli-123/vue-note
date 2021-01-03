@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ msg }}</h1>
+      <button @click="fn">改值</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // watch侦听器作用: 可以监视数据的变化, 只要数据变化了, 就会自动执行你配置的函数
+      // el 视图, data 数据, methods 方法, filters directives computed watch 钩子函数(created)
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          str: 'abc',
+          obj: {
+            name: 'zs',
+            age: 18
+          }
+        },
+        methods: {
+          fn () {
+            this.msg = '张三'
+          }
+        },
+        watch: {
+          // 监视 msg 的变化, 只要msg变化了, 就会执行对应watch中的这个函数
+          msg (newValue) {
+            console.log('值变化了, 变化后:', newValue)
+          },
+          // 监视 str 的变化
+          str (newValue, oldValue) {
+            console.log('值变化了, 变化后:', newValue)
+          },
+          // 监视 obj.age 的变化
+          'obj.age': function(newValue) {
+            console.log('变化后:', newValue)
+          }
+        }
+      })
+
+
+      // var obj = {
+      //   name: 'zs',
+      //   age: 18,
+      //   'pp.cc': '值',
+      //   'pp~cc': '值',
+      //   'ppcc': '值',
+      // }
+    </script>
+  </body>
+</html>

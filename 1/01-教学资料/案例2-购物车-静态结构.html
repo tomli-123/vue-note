@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h4,
+      p {
+        margin: 0;
+        font-weight: normal;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      body {
+        background-color: #eee;
+      }
+      #app {
+        background-color: #fff;
+        width: 900px;
+        margin: 50px auto;
+        text-align: center;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        padding: 1em 2em;
+      }
+
+      .list {
+        padding: 1em;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .book {
+        position: relative;
+        flex-basis: 22%;
+        margin-right: 2%;
+        margin-bottom: 1em;
+        text-align: center;
+        background-color: #fff;
+        padding: 1em 0;
+        transition: all 0.2s linear;
+      }
+
+      .book:hover {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        transform: translate3d(0, -2px, 0);
+      }
+
+      .title {
+        line-height: 2em;
+        margin: 0;
+        padding: 0;
+      }
+
+      .figure img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .desc {
+        margin: 0;
+        font-size: 16px;
+      }
+
+      .price {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .btn {
+        cursor: pointer;
+        position: absolute;
+        right: 0.8em;
+        top: 0.8em;
+        border: none;
+        color: #ff6700;
+        padding: 0.5em 0.5em;
+        font-size: 12px;
+      }
+
+      .btn:active {
+        border: none;
+      }
+
+      .btn:hover {
+        background-color: #ff6700;
+        color: #fff;
+      }
+
+      .cart {
+        border: 1px solid #eee;
+        background-color: #fff;
+        text-align: center;
+        position: fixed;
+        padding: 1em;
+        right: 100px;
+        top: 200px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h3>我的购物车</h3>
+      <div class="list">
+        <div class="book" title="JavaScript高级程序设计">
+          <a href="javascript:;">
+            <div class="figure">
+              <img
+                src="http://img3m3.ddimg.cn/2/21/22628333-1_b_2.jpg"
+                alt=" JavaScript高级程序设计"
+              />
+            </div>
+            <h4 class="title" title="JavaScript高级程序设计">
+              JavaScript高级程序设计
+            </h4>
+            <p class="desc"></p>
+            <p class="price"><span class="num">78</span></p>
+          </a>
+          <button class="btn" title="移出购物车">-</button>
+        </div>
+        <div class="book" title="断舍离">
+          <a href="javascript:;">
+            <div class="figure">
+              <img
+                alt="断舍离"
+                src="http://img3m3.ddimg.cn/68/20/23271503-1_l_10.jpg"
+                title="断舍离"
+              />
+            </div>
+            <h4 class="title" title="断舍离">断舍离</h4>
+            <p class="desc"></p>
+            <p class="price"><span class="num">29.9</span></p>
+          </a>
+          <button class="btn" title="移出购物车">-</button>
+        </div>
+        <div class="book" title="王子与贫儿">
+          <a href="javascript:;">
+            <div class="figure">
+              <img
+                src="http://img3m0.ddimg.cn/67/20/28535530-1_l_3.jpg"
+                alt="王子与贫儿"
+              />
+            </div>
+            <h4 class="title" title="王子与贫儿">王子与贫儿</h4>
+            <p class="desc"></p>
+            <p class="price"><span class="num">39.9</span></p>
+          </a>
+          <button class="btn" title="移出购物车">-</button>
+        </div>
+        <div class="book" title="高效能人士的七个习惯">
+          <a href="javascript:;">
+            <div class="figure">
+              <img
+                src="http://img3m2.ddimg.cn/3/4/25253022-1_b_11.jpg"
+                alt="高效能人士的七个习惯"
+              />
+            </div>
+            <h4 class="title" title="高效能人士的七个习惯">
+              高效能人士的七个习惯
+            </h4>
+            <p class="desc"></p>
+            <p class="price"><span class="num">59.3</span></p>
+          </a>
+          <button class="btn" title="移出购物车">-</button>
+        </div>
+      </div>
+      <div>购物车是空的！</div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          bookList: [
+            {
+              id: 1,
+              name: '当你学会独处',
+              price: 29.9,
+              picSrc: 'http://img3m8.ddimg.cn/70/15/28522168-1_l_3.jpg'
+            },
+            {
+              id: 2,
+              name: 'JavaScript高级程序设计',
+              price: 78,
+              picSrc: 'http://img3m3.ddimg.cn/2/21/22628333-1_b_2.jpg'
+            },
+            {
+              id: 3,
+              name: '断舍离',
+              price: 29.9,
+              picSrc: 'http://img3m3.ddimg.cn/68/20/23271503-1_l_10.jpg'
+            },
+            {
+              id: 4,
+              name: '王子与贫儿',
+              price: 39.9,
+              picSrc: 'http://img3m0.ddimg.cn/67/20/28535530-1_l_3.jpg'
+            },
+            {
+              id: 5,
+              name: '高效能人士的七个习惯',
+              price: 59.3,
+              picSrc: 'http://img3m2.ddimg.cn/3/4/25253022-1_b_11.jpg'
+            }
+          ]
+        },
+        methods: {}
+      })
+    </script>
+  </body>
+</html>

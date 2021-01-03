@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <!-- 
+    $.ajax({ ... }) type url data success error
+
+    axios 只是一个 基于原生ajax封装的 插件工具
+    在你需要发送ajax的时候, 引入即可
+
+    使用:
+      1. 下载 npm i axios
+      2. 引包
+      3. 发送请求
+
+    axios({
+      method: 请求方式,   // get post put patch delete
+      url: 请求地址,      // http://localhost:3000/list
+      data: {},          // 参数对象, 在body请求体中传递, post put patch
+      params: {}         // 参数对象, 在url地址栏中传递, ?xx=xx   get delete
+    }).then(成功的函数).catch(失败的函数)
+
+
+    注意: 打开页面 alt + B, 不要用 vscode插件 live-server, 会和我们的 json-server 冲突
+    live-server会监视vscode工作区的内容, 只要改变了内容, 就会自动刷新浏览器
+
+    打开页面 => 发送请求, 修改请求 => json-server修改data.json
+    只要修改data.json, 而data.json又在vscode工作区, 被live-server监视到, 要刷新页面
+   -->
+   <script src="./node_modules/axios/dist/axios.js"></script>
+   <script>
+
+    // get 获取
+    // post 添加
+    // delete 删除
+    // put  全部修改
+    // patch 局部修改
+
+    // 如果发送的请求比较简单, 可以利用axios简写的语法
+    /* 
+      1. get 和 delete类似
+        axios.get(url).then(成功的函数)
+        axios.get(url, {
+          params: { ... }
+        }).then(成功的函数)
+
+      2. post 和 put 和 patch 类似
+        axios.post(url, data).then(成功的函数)
+    */
+
+    // 测试
+    // 1. 发送get请求, 获取全部的数据
+    // axios.get('http://localhost:3000/list').then(res => {
+    //   console.log(res.data)
+    // })
+
+    // 2. 发送get请求, 完成搜索数据
+    // axios.get('http://localhost:3000/list?name_like=车').then(res => {
+    //   console.log(res.data)
+    // })
+    // axios.get('http://localhost:3000/list', {
+    //   params: {
+    //     name_like: '车'
+    //   }
+    // }).then(res => {
+    //   console.log(res.data)
+    // })
+
+    // 3. axios发送post请求, 添加
+    // axios.post('http://localhost:3000/list', {
+    //   name: '缆车🚠',
+    //   price: 18
+    // }).then(res => {
+    //   console.log('添加完成')
+    // })
+
+    // 4. 删除操作 delete
+    // const id = 8
+    // axios.delete(`http://localhost:3000/list/${id}`).then(res => {
+    //   console.log('删除成功')
+    // })
+
+    // 5. 全部修改, 两个属性都改 put
+    // const id = 5
+    // axios.put(`http://localhost:3000/list/${id}`, {
+    //   name: '大house',
+    //   price: 999
+    // }).then(res => {
+    //   console.log(res.data) // 得到修改后的结果
+    //   console.log('修改成功')
+    // })
+
+    // 6. 局部修改, 只改一个属性 patch
+    const id = 4
+    axios.patch(`http://localhost:3000/list/${id}`, {
+      name: '祖传三轮车'
+    }).then(res => {
+      console.log(res.data) // 得到修改的结果
+      console.log('修改成功')
+    })
+
+
+
+
+
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ date1 | time('YYYY年') }}</h1>
+      <h1>{{ date1 | time('YYYY年MM月') }}</h1>
+      <h1>{{ date1 | time('YYYY年MM月DD日') }}</h1>
+      <h1>{{ date1 | time }}</h1>
+    </div>
+
+    <script src="./node_modules/moment/moment.js"></script>
+    <script src="./vue.js"></script>
+    <script>
+      // 需求: 有时后台会直接返回时间戳, 就需要我们转换成需要的日期格式, 
+      // 比如: xxxx年xx月xx日 xx:xx:xx
+      // 比如: xxxx-xx-xx xx:xx:xx
+
+      // 过滤器的参数:
+      // 其实过滤器使用时, 可以传参的
+      // {{ msg | 过滤器名 }} 不传参
+      // {{ msg | 过滤器名(额外参数1, 额外参数2, ..) }} 传参的形式
+
+      // 不管是否额外传参了, 过滤函数的第一个参数, 永远是要处理的字符串
+
+      Vue.filter('time', function(value, str='YYYY年MM月DD日 HH:mm:ss') {
+        return moment(value).format(str)
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          date1: 1601348075835,
+          date2: 1201348075835
+        }
+      })
+    </script>
+  </body>
+</html>

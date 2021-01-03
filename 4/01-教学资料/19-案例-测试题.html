@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .my-subject {
+        border: 1px solid #000;
+        width: 300px;
+        margin: 10px;
+        padding: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h4>测试题</h4>
+      <my-subject 
+        @submit-ans="submitAns" 
+        v-for="item in list" 
+        :key="item.id"
+        :subjectid="item.id">
+      </my-subject>
+      <p>
+        <span v-for="item in list">{{item.id}}. {{item.ans}} </span>
+      </p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      Vue.component('my-subject', {
+        template: `
+          <div class="my-subject">
+            <span>{{ num1 }}</span> + 
+            <span>{{ num2 }}</span> = 
+            <input type="text" class="sum" v-model.trim.number="sum" :disabled="isSubmit">
+            <button @click="submitAns" :disabled="isSubmit">提交</button>
+          </div>
+        `,
+        data () {
+          return {
+            num1: Math.floor(Math.random() * 10),
+            num2: Math.floor(Math.random() * 10),
+            sum: '',
+            isSubmit: false
+          }
+        },
+        props: ['subjectid'],
+        methods: {
+          submitAns () {
+            // 判断是否做对了
+            const result = +(this.num1 + this.num2) === this.sum ? '正确' : '错误'
+            this.$emit('submit-ans', {
+              id: this.subjectid,
+              ans: result
+            })
+            this.isSubmit = true
+          }
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          list: [
+            { id: 1, ans: '未完成' },
+            { id: 2, ans: '未完成' },
+            { id: 3, ans: '未完成' }
+          ]
+        },
+        methods: {
+          submitAns (obj) {
+            const item = this.list.find(item => item.id === obj.id)
+            item.ans = obj.ans
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #app {
+        width: 400px;
+        height: 400px;
+        background-color: pink;
+      }
+
+      .son {
+        width: 300px;
+        height: 200px;
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 根组件的模板范围 -->
+    <div id="app">
+      <son :money="money" desc="abc"></son>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        组件的数据来源: data + props
+          (1) data 自己的数据, 随便改
+          (2) props 不是自己的数据, 是外部的, 不要改 遵循开发规范: 单向数据流
+
+        单向数据流: 父组件的数据变化了, 自动向下重新流动, 进行更新子组件
+        如果不遵循, 子组件中随意的修改父组件传递过来的props数据, 那么很可能会直接影响到其他子组件
+        代码难以维护, 应该避免
+      */
+      Vue.component('son', {
+        template: `
+          <div class="son">
+            <h3>我是子组件</h3>
+            <p>传过来的数据: {{ money }} - {{ desc }}</p>
+            <p>自己的数据: {{ msg }}</p>
+            <button @click="fn">改值</button>
+          </div>
+        `,
+        data () {
+          return {
+            msg: '你好'
+          }
+        },
+        methods: {
+          fn () {
+            // this.msg = '不错'
+            this.money = 1
+          }
+        },
+        // props中的数据和data类似, 都可以直接使用
+        props: ['money', 'desc']
+      })
+
+      // 根实例(根组件)
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          money: 10000
+        }
+      })
+
+
+      /* 
+        父传子基本语法:
+          1. 在父组件中, 通过给子组件添加标签属性的方式传值
+          2. 在子组件中, 通过 props 接收传递的参数
+      
+      */
+    </script>
+  </body>
+</html>

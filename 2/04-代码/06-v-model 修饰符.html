@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model.trim="msg"> {{ msg }} <br><br>
+      <input type="text" v-model.number="num"> {{ num }} <br><br>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // v-model的修饰符
+      // .trim 去掉首尾空格
+      // .number 对输入的内容, 尝试使用parseFloat转数字, 如果遇到了转不了的数字的内容, 会原文返回
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue',
+          num: 18
+        }
+      })
+    </script>
+  </body>
+</html>

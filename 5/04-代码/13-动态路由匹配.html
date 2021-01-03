@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>动态路由匹配</h3>
+      <router-link to="/user/1">用户1</router-link>
+      <router-link to="/user/2">用户2</router-link>
+      <router-link to="/user/3">用户3</router-link>
+      <router-link to="/user/10000">用户10000</router-link>
+      <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      // 对于id各不相同的用户, 映射向同一个组件
+      // #/user/1    ===>  显示id为1的用户
+      // #/user/2    ===>  显示id为2的用户
+      // #/user/3    ===>  显示id为3的用户
+      // ...
+      // #/user/1000    ===>  显示id为1000的用户
+
+      // $route是一个对象, 包含了当前路由的相关信息(路径, 参数)
+      // path: 不包含查询参数的路径  不带 ?username=pp
+      // fullPath 包含查询参数的路径  带上 ?username=pp
+      // params 获取动态路由参数的值
+      // query  获取查询参数
+
+      // 要拿路径, 要拿参数, 一律找 $route
+
+      const User = { 
+        template: `<div>我是user组件 - {{ msg }} - {{ $route.params.id }}</div>` ,
+        data () {
+          return {
+            msg: '张三'
+          }
+        },
+        created () {
+          // console.log(this.msg)
+          console.log(this.$route)
+        }
+      }
+
+      // 多个路由映射向了同一个组件
+      // path: '/user/:id'  可以匹配 /user/1  /user/2 , ... /user/10000
+      const router = new VueRouter({
+        routes: [
+          { path: '/user/:id', component: User }
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        router
+      })
+
+
+
+
+
+      
+      /* 
+        路由的基本使用:
+        1. 下载 npm i vue-router
+        2. 引包
+        3. 创建路由实例
+        4. 挂载
+
+        5. 配置路由规则
+        6. 准备路由出口
+      
+      */
+    </script>
+  </body>
+</html>

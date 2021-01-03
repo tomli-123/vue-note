@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>路由复习</h3>
+      <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+      // 需求: 实现 首页 登录页 列表页的 单页切换
+      /* 
+        路由的基本使用步骤:
+          1. 下载
+          2. 引包
+          3. 创建路由实例
+          4. 挂载
+          5. 配置路由规则
+             { path: '/home', component: 组件配置对象 }
+          6. 配置路由出口 
+             <router-view></router-view>  视图展示, 控制路由的出口 (决定了匹配时, 展示组件的位置)
+            
+             <router-link></router-link>  导航链接, 跳转路由
+      */
+      const Home = {
+        template: `
+          <div>我是home组件</div>
+        `
+      }
+
+      const router = new VueRouter({
+        routes: [
+          { path: '/', redirect: '/home' },
+          { path: '/home', component: Home },
+          { path: '/login', component: { template: `<div>我是登录页</div>` } },
+          { path: '/list', component: { template: `<div>我是列表页</div>` } },
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        router
+      })
+    </script>
+  </body>
+</html>

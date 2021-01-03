@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ msg.split('').reverse().join('') }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ reverseMsg }}</h1>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 效果是翻转字符串, 但是在模板中写了很复杂的逻辑, 难以维护
+      // 模板中写了大量的逻辑, 会导致模板过重, 不好维护
+      // 如果一个结果, 依赖于data中的数据, 并且需要经过一定的计算, 才能得到结果, 推荐使用计算属性!
+
+      // 计算属性:
+      // 1. 写在computed中
+      // 2. 计算属性 和 data类似, 都是用于提供属性的
+      // 3. 计算属性写法上一个函数, 但实质是一个属性
+      //    计算属性, 是需要通过计算得到的属性, 函数中就封装了计算的过程, 真正属性的值, 是函数的返回值
+
+      const vm = new Vue({
+        // el data methods filters directives computed
+        el: '#app',
+        data: {
+          msg: 'hello vue'
+        },
+        // 计算属性, 计算属性函数中的 this 指向当前vm实例
+        computed: {
+          reverseMsg () {
+            // 计算逻辑
+            return this.msg.split('').reverse().join('')
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
